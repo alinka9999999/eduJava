@@ -4,26 +4,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.addressbook.model.GroupData;
 
-public class GroupHelper {
-    private WebDriver wd;
+public class GroupHelper extends HelperBase {
 
     public GroupHelper(WebDriver wd) {
-        this.wd = wd;
+        super(wd);
     }
 
     public void fillGroupForm(GroupData groupData) {
-        wd.findElement(By.name("group_name")).clear();
-        wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
+        type("group_name", groupData.getName());
         initGroupCreation("group_header");
-        wd.findElement(By.name("group_header")).clear();
-        wd.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
+        type("group_header", groupData.getHeader());
         initGroupCreation("group_footer");
-        wd.findElement(By.name("group_footer")).clear();
-        wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
+        type("group_footer", groupData.getFooter());
     }
 
-    public void initGroupCreation(String s) {
-        wd.findElement(By.name(s)).click();
+    public void initGroupCreation(String locator) {
+        wd.findElement(By.name(locator)).click();
     }
 
     public void deleteSelectedGroup() {

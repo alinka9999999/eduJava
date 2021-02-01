@@ -1,4 +1,4 @@
-package ru.addressbook;
+package ru.addressbook.test;
 
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
@@ -6,6 +6,7 @@ import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import ru.addressbook.ContactData;
 
 public class ContactCreationTest {
   private WebDriver wd;

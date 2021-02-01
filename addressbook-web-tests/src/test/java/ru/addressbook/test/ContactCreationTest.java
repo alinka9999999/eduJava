@@ -10,6 +10,7 @@ public class ContactCreationTest extends TestBase {
   public void testContactCreation() throws Exception {
     app.getContactHelper().clicktoElement("add new");
     app.getContactHelper().fillNewContact(new ContactData("Иннокентий", "Константинов", "Оренбург", "alina.yahina37@gmail.com"));
+    app.getContactHelper().clickButton();
     app.getContactHelper().clicktoElement("Logout");
   }
 }

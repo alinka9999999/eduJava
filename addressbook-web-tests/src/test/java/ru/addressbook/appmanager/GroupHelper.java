@@ -17,6 +17,7 @@ public class GroupHelper extends HelperBase {
         initGroupCreation("group_footer");
         type("group_footer", groupData.getFooter());
     }
+    public void click(String text) { wd.findElement(By.name(text)).click(); }
 
     public void initGroupCreation(String locator) {
         wd.findElement(By.name(locator)).click();
@@ -28,5 +29,13 @@ public class GroupHelper extends HelperBase {
 
     public void selectGroup() {
       wd.findElement(By.name("selected[]")).click();
+    }
+
+    public void initGroupModification() {
+        click("edit");
+    }
+
+    public void submitGroupModification() {
+        click("update");
     }
 }

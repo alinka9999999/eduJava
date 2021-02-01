@@ -6,7 +6,7 @@ import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import ru.addressbook.ContactData;
+import ru.addressbook.model.ContactData;
 
 public class ContactCreationTest {
   private WebDriver wd;

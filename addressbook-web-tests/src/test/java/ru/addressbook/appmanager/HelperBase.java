@@ -12,9 +12,20 @@ public class HelperBase {
         this.wd = wd;
     }
 
-    protected void type(String group_name, String name) {
-        wd.findElement(By.name(group_name)).clear();
-        wd.findElement(By.name(group_name)).sendKeys(name);
+    protected void type(String locator, String text) {
+        click(locator);
+        if (text != null) {
+            String existingText = wd.findElement(By.name(locator)).getAttribute("value");
+            if (!text.equals(existingText)) {
+                wd.findElement(By.name(locator)).clear();
+                wd.findElement(By.name(locator)).sendKeys(text);
+            }
+        }
+    }
+
+
+    private void click(String locator) {
+        wd.findElement(By.name(locator)).click();
     }
 
     public boolean isAlertPresent() {

@@ -23,14 +23,6 @@ public class ContactHelper extends HelperBase {
         initContactCreation("lastname");
         wd.findElement(By.name("address")).sendKeys(contactData.getCity());
         type("email", contactData.getEmail());
-        wd.findElement(By.name("bday")).click();
-        new Select(wd.findElement(By.name("bday"))).selectByVisibleText("29");
-        wd.findElement(By.xpath("//option[@value='29']")).click();
-        wd.findElement(By.name("bmonth")).click();
-        new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText("April");
-        wd.findElement(By.name("byear")).click();
-        wd.findElement(By.name("byear")).clear();
-        wd.findElement(By.name("byear")).sendKeys("1997");
 
     }
 
@@ -41,13 +33,12 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.name("update")).click();
     }
 
-    public void clicktoElement(String locator) {
-        wd.findElement(By.linkText(locator)).click();
+    public void clickToHome() {
+        wd.findElement(By.linkText("home")).click();
     }
 
     public void deleteContact() {
-        wd.findElement(By.id("1")).click();
-        acceptNextAlert = true;
+        wd.findElement(By.name("selected[]")).click();
         wd.findElement(By.xpath("//input[@value='Delete']")).click();
         wd.switchTo().alert().accept();
     }

@@ -7,7 +7,7 @@ public class ContactModificationTest extends TestBase {
 
     @Test
     public void modificationContact() {
-        app.getContactHelper().clicktoElement("home");
+        app.getContactHelper().clickToHome();
         app.getContactHelper().modificationContactClick();
         app.getContactHelper().fillNewContact(new ContactData("1", "2", "3", "4"));
         app.getContactHelper().clickUpdate();

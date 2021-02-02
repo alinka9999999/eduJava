@@ -6,9 +6,9 @@ public class DeleteContact extends TestBase{
 
     @Test
     public void deleteContact(){
-        app.getContactHelper().clicktoElement("home");
+        app.getContactHelper().clickToHome();
         app.getContactHelper().deleteContact();
-        app.getContactHelper().clicktoElement("home");
+        app.getContactHelper().clickToHome();
     }
 
 }

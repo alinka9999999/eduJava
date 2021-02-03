@@ -12,18 +12,22 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void initContactCreation(String locator) {
-        wd.findElement(By.name(locator)).click();
+    public void initContactCreation() {
+        wd.findElement(By.linkText("add new")).click();
     }
 
     public void fillNewContact(ContactData contactData) {
         type("firstname", contactData.getName());
-        initContactCreation("firstname");
+        click("firstname");
         type("lastname", contactData.getLastname());
-        initContactCreation("lastname");
+        click("lastname");
         wd.findElement(By.name("address")).sendKeys(contactData.getCity());
         type("email", contactData.getEmail());
 
+    }
+
+    public void click(String locator) {
+        wd.findElement(By.name(locator)).click();
     }
 
     public void clickButton() {

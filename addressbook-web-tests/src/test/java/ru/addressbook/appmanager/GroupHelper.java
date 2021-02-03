@@ -17,7 +17,6 @@ public class GroupHelper extends HelperBase {
         initGroupCreation("group_footer");
         type("group_footer", groupData.getFooter());
     }
-    public void click(String text) { wd.findElement(By.name(text)).click(); }
 
     public void clickSubmit() { wd.findElement(By.name("submit")).click(); }
 

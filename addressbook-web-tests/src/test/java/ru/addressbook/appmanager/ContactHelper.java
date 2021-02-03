@@ -60,4 +60,8 @@ public class ContactHelper extends HelperBase {
         clickButton();
         returnToContactPage();
     }
+
+    public int getContactCount() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
 }

@@ -13,6 +13,7 @@ public class DeleteContact extends TestBase {
             app.getContactHelper().createContact(new ContactData("Михаил", "Лермонтов", "Кисловодск", "a@m.ru"));
         }
         app.getContactHelper().deleteContact();
+        app.getContactHelper().clickToHome();
         int after = app.getContactHelper().getContactCount();
         Assert.assertEquals(after, before - 1);
     }

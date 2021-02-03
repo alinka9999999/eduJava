@@ -7,10 +7,13 @@ public class ContactModificationTest extends TestBase {
 
     @Test
     public void modificationContact() {
-        app.getContactHelper().clickToHome();
+        if(!app.getContactHelper().isThereContact()) {
+            app.getContactHelper().createContact(new ContactData("Михаил", "Лермонтов", "Кисловодск", "a@m.ru"));
+        }
         app.getContactHelper().modificationContactClick();
-        app.getContactHelper().fillNewContact(new ContactData("1", "2", "3", "4"));
+        app.getContactHelper().fillNewContact(new ContactData("Александр", "Пушкин", "Москва", "s@m.ru"));
         app.getContactHelper().clickUpdate();
+        app.getContactHelper().returnToContactPage();
     }
 
 }

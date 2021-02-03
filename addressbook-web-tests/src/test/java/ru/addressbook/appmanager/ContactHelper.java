@@ -2,7 +2,6 @@ package ru.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 import ru.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -27,10 +26,10 @@ public class ContactHelper extends HelperBase {
     }
 
 
-
     public void clickButton() {
         wd.findElement(By.name("submit")).click();
     }
+
     public void clickUpdate() {
         wd.findElement(By.name("update")).click();
     }
@@ -49,4 +48,16 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("(//img[@alt='Edit'])[1]")).click();
     }
 
+    public boolean isThereContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void returnToContactPage() {wd.findElement(By.linkText("home page")).click();    }
+
+    public void createContact(ContactData contact) {
+        initContactCreation();
+        fillNewContact(contact);
+        clickButton();
+        returnToContactPage();
+    }
 }

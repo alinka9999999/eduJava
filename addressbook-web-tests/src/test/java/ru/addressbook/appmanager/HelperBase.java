@@ -4,8 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import ru.addressbook.test.TestBase;
 
-public class HelperBase {
+public class HelperBase extends TestBase {
 
     protected WebDriver wd;
 
@@ -23,7 +24,6 @@ public class HelperBase {
             }
         }
     }
-
 
     void click(String locator) {
         wd.findElement(By.name(locator)).click();

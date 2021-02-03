@@ -26,9 +26,7 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void click(String locator) {
-        wd.findElement(By.name(locator)).click();
-    }
+
 
     public void clickButton() {
         wd.findElement(By.name("submit")).click();

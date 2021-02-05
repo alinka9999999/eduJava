@@ -3,20 +3,18 @@ package ru.addressbook.test;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.addressbook.model.ContactData;
-import ru.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTest extends TestBase {
 
 
-    @Test
+    @Test(enabled = false)
     public void testContactCreation() throws Exception {
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().initContactCreation();
-        ContactData contact = new ContactData( "Федор", "Достоевский", "Оренбург", "alina.yahina37@gmail.com");
+        ContactData contact = new ContactData("Федор", "Достоевский", "Оренбург", "alina.yahina37@gmail.com");
         app.getContactHelper().fillNewContact(contact);
         app.getContactHelper().clickButton();
         app.getContactHelper().returnToContactPage();

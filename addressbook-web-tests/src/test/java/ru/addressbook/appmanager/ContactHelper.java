@@ -42,27 +42,41 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.linkText("home")).click();
     }
 
-    public void deleteContact() {
+    public void deleteContactCheckBox() {
         wd.findElement(By.name("selected[]")).click();
         wd.findElement(By.xpath("//input[@value='Delete']")).click();
         wd.switchTo().alert().accept();
     }
 
     public void modificationContactClick(int id) {
-        wd.findElement(By.xpath("(//img[@alt='Edit'])["+id+"]")).click();
+        wd.findElement(By.xpath("(//img[@alt='Edit'])[" + id + "]")).click();
     }
 
     public boolean isThereContact() {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void returnToContactPage() {wd.findElement(By.linkText("home page")).click();    }
+    public void returnToContactPage() {
+        wd.findElement(By.linkText("home page")).click();
+    }
 
     public void createContact(ContactData contact) {
         initContactCreation();
         fillNewContact(contact);
         clickButton();
         returnToContactPage();
+    }
+
+    public void modifyContact(int index, ContactData contact) {
+        modificationContactClick(index);
+        fillNewContact(contact);
+        clickUpdate();
+        returnToContactPage();
+    }
+
+    public void deleteContact() {
+        deleteContactCheckBox();
+        clickToHome();
     }
 
     public int getContactCount() {

@@ -79,10 +79,9 @@ public class ContactHelper extends HelperBase {
 
     public void delete(int index) {
         deleteContactCheckBox(index);
+        clickToHome();
 
     }
-
-
 
     public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
@@ -92,7 +91,7 @@ public class ContactHelper extends HelperBase {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement element : elements) {
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("value"));
             String name = element.findElement(By.xpath(".//td[3]")).getText();
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
             contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));
@@ -112,5 +111,16 @@ public class ContactHelper extends HelperBase {
             return contacts;
 
         }
+
+    public void delete(ContactData contact) {
+        deleteContactCheckBoxById(contact.getId());
+        clickToHome();
+    }
+
+    private void deleteContactCheckBoxById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+        wd.findElement(By.xpath("//input[@value='Delete']")).click();
+        wd.switchTo().alert().accept();
+    }
 }
 

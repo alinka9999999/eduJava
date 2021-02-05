@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import ru.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
     private boolean acceptNextAlert = true;
@@ -42,11 +44,12 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.linkText("home")).click();
     }
 
-    public void deleteContactCheckBox() {
-        wd.findElement(By.name("selected[]")).click();
+    public void deleteContactCheckBox(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
         wd.findElement(By.xpath("//input[@value='Delete']")).click();
         wd.switchTo().alert().accept();
     }
+
 
     public void modificationContactClick(int id) {
         wd.findElement(By.xpath("(//img[@alt='Edit'])[" + id + "]")).click();
@@ -74,10 +77,12 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
-    public void deleteContact() {
-        deleteContactCheckBox();
-        clickToHome();
+    public void delete(int index) {
+        deleteContactCheckBox(index);
+
     }
+
+
 
     public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
@@ -93,6 +98,19 @@ public class ContactHelper extends HelperBase {
             contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));
         }
         return contacts;
-
     }
+
+        public Set<ContactData> all() {
+            Set<ContactData> contacts = new HashSet<>();
+            List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+            for (WebElement element : elements) {
+                int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+                String name = element.findElement(By.xpath(".//td[3]")).getText();
+                String lastname = element.findElement(By.xpath(".//td[2]")).getText();
+                contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));
+            }
+            return contacts;
+
+        }
 }
+

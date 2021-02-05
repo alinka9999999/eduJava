@@ -20,13 +20,13 @@ public class ContactDeleteTest extends TestBase {
     @Test(enabled = true)
     public void deletionContact() {
         List<ContactData> before = app.contact().list();
-        app.contact().deleteContact();
+        int index = before.size() - 1;
+        app.contact().delete(index);
         List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() - 1);
 
-        before.remove(before.size() - 1);
-        for (int i = 0; i < after.size(); i++) {
-            Assert.assertEquals(before.get(1), after.get(1));
-        }
+        before.remove(index);
+            Assert.assertEquals(before, after);
+
     }
 }

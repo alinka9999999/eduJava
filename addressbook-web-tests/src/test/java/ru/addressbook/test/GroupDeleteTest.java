@@ -11,19 +11,19 @@ public class GroupDeleteTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (!app.getGroupHelper().isThereAGroup()) {
-            app.getGroupHelper().createGroup(new GroupData("2 попытка", "test", "test"));
+        if (app.group().list().size() == 0) {
+            app.group().create(new GroupData("2 попытка", "test", "test"));
         }
     }
 
 
     @Test
     public void testDeleteGroup() throws Exception {
-        app.getNavigationHelper().gotoGroupPage();
-        List<GroupData> before = app.getGroupHelper().getGroupList();
-        int index = (before.size() - 1);
-        app.getGroupHelper().deleteGroup(index);
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        app.goTo().GroupPage();
+        List<GroupData> before = app.group().list();
+        int index = before.size() - 1;
+        app.group().delete(index);
+        List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size() - 1);
 
 

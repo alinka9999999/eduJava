@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.addressbook.model.ContactData;
-import ru.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class ContactHelper extends HelperBase {
         click("firstname");
         type("lastname", contactData.getLastname());
         click("lastname");
-        wd.findElement(By.name("address")).sendKeys(contactData.getCity());
+        type("address", contactData.getAddress());
         type("email", contactData.getEmail());
 
     }
@@ -49,8 +48,8 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void modificationContactClick() {
-        wd.findElement(By.xpath("(//img[@alt='Edit'])[1]")).click();
+    public void modificationContactClick(int id) {
+        wd.findElement(By.xpath("(//img[@alt='Edit'])["+id+"]")).click();
     }
 
     public boolean isThereContact() {
@@ -74,10 +73,13 @@ public class ContactHelper extends HelperBase {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement element : elements) {
-            String name = element.getText();
-            ContactData contact = new ContactData(name, null, null, null);
+            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            String name = element.findElement(By.xpath(".//td[3]")).getText();
+            String lastname = element.findElement(By.xpath(".//td[2]")).getText();
+            ContactData contact = new ContactData(id, name, lastname, null, null);
             contacts.add(contact);
         }
         return contacts;
+
     }
 }

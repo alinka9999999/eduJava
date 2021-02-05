@@ -17,5 +17,4 @@ public class NavigationHelper extends HelperBase {
         }
         wd.findElement(By.linkText("groups")).click();
     }
-
 }

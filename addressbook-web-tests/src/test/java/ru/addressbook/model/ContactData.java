@@ -3,26 +3,36 @@ package ru.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private int id;
-    private final String name;
-    private final String lastname;
-    private final String address;
-    private final String email;
+    private int id= Integer.MAX_VALUE;
+    private String name;
+    private String lastname;
+    private String address;
+    private String email;
 
-    public ContactData(String name, String lastname, String address, String email) {
-        this.id = Integer.MAX_VALUE;
+
+    public ContactData withName(String name) {
         this.name = name;
-        this.lastname = lastname;
-        this.address = address;
-        this.email = email;
+        return this;
     }
 
-    public ContactData(int id, String name, String lastname, String address, String email) {
-        this.id = id;
-        this.name = name;
+    public ContactData withLastname(String lastname) {
         this.lastname = lastname;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
     }
 
     public int getId() {
@@ -42,9 +52,6 @@ public class ContactData {
         return Objects.hash(name, lastname);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {

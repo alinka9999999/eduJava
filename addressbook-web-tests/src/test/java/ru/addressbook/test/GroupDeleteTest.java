@@ -11,15 +11,15 @@ public class GroupDeleteTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
+        app.goTo().GroupPage();
         if (app.group().list().size() == 0) {
-            app.group().create(new GroupData("2 попытка", "test", "test"));
+            app.group().create(new GroupData().withName("testDelete").withHeader("2").withFooter("1"));
         }
     }
 
 
     @Test
     public void testDeleteGroup() throws Exception {
-        app.goTo().GroupPage();
         List<GroupData> before = app.group().list();
         int index = before.size() - 1;
         app.group().delete(index);

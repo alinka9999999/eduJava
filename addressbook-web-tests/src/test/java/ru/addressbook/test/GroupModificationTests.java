@@ -14,7 +14,7 @@ public class GroupModificationTests extends TestBase {
     public void ensurePreconditions() {
         app.goTo().GroupPage();
         if (app.group().list().size() == 0) {
-            app.group().create(new GroupData("2 попытка", "test", "test"));
+            app.group().create(new GroupData().withName("test3"));
         }
     }
 
@@ -23,7 +23,8 @@ public class GroupModificationTests extends TestBase {
     public void testGroupModification() {
         List<GroupData> before = app.group().list();
         int index = before.size() - 1;
-        GroupData group = new GroupData(before.get(index).getId(), "tets", "test", "-");
+        GroupData group = new GroupData()
+                .withId(before.get(index).getId()).withName( "test4").withHeader( "test").withFooter("-");
         app.group().modify(index, group);
         List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size());

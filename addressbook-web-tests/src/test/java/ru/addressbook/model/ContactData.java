@@ -3,21 +3,21 @@ package ru.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private final String id;
+    private int id;
     private final String name;
     private final String lastname;
     private final String address;
     private final String email;
 
     public ContactData(String name, String lastname, String address, String email) {
-        this.id = null;
+        this.id = 0;
         this.name = name;
         this.lastname = lastname;
         this.address = address;
         this.email = email;
     }
 
-    public ContactData(String id, String name, String lastname, String address, String email) {
+    public ContactData(int id, String name, String lastname, String address, String email) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -25,7 +25,7 @@ public class ContactData {
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -34,7 +34,11 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

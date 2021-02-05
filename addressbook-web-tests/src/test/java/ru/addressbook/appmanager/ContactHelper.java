@@ -70,11 +70,15 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
-    public void modify(int index, ContactData contact) {
-        modificationContactClick(index);
+    public void modify(ContactData contact) {
+        modificationContactClickById(contact.getId());
         fillNewContact(contact);
         clickUpdate();
         returnToContactPage();
+    }
+
+    private void modificationContactClickById(int id) {
+        wd.findElement(By.cssSelector("a[href='edit.php?id="+id+"']")).click();
     }
 
     public void delete(int index) {
@@ -122,5 +126,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//input[@value='Delete']")).click();
         wd.switchTo().alert().accept();
     }
+
+
 }
 

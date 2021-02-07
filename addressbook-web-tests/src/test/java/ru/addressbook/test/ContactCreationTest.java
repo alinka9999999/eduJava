@@ -17,11 +17,24 @@ public class ContactCreationTest extends TestBase {
         ContactData contact = new ContactData()
                 .withName("Федор").withLastname("Достоевский").withAddress("Оренбург").withEmail("alina.yahina37@gmail.com");
         app.contact().create(contact);
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size() + 1));
 
         assertThat(after, CoreMatchers.equalTo(before.
                 withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+    }
+
+
+    @Test(enabled = true)
+    public void testBadContactCreation() throws Exception {
+        Contacts before = app.contact().all();
+        ContactData contact = new ContactData()
+                .withName("Федор'").withLastname("Достоевский").withAddress("Оренбург").withEmail("alina.yahina37@gmail.com");
+        app.contact().create(contact);
+        Contacts after = app.contact().all();
+        assertThat(app.contact().count(), equalTo(before.size()));
+
+        assertThat(after, CoreMatchers.equalTo(before));
     }
 }
 

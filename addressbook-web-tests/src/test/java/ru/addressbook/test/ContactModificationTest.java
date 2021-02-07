@@ -31,4 +31,17 @@ public class ContactModificationTest extends TestBase {
 
         assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(contact)));
     }
+
+    @Test(enabled = true)
+    public void modificationBadContact() {
+        Contacts before = app.contact().all();
+        ContactData modifiedContact = before.iterator().next();
+        ContactData contact = new ContactData().withId(modifiedContact.getId())
+                .withName("Александр").withLastname("Пушкин").withAddress("Москва").withEmail("alina@mail.com");
+        app.contact().modify(contact);
+        Assert.assertEquals(app.contact().count(), before.size());
+        Contacts after = app.contact().all();
+
+        assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(contact)));
+    }
 }

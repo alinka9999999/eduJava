@@ -8,7 +8,20 @@ public class ContactData {
     private String lastname;
     private String address;
     private String email;
+    private String group;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
 
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
+    }
 
     public ContactData withName(String name) {
         this.name = name;
@@ -19,6 +32,22 @@ public class ContactData {
         this.lastname = lastname;
         return this;
     }
+
+    public ContactData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
+
 
     public ContactData withAddress(String address) {
         this.address = address;
@@ -36,16 +65,6 @@ public class ContactData {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, lastname);
-    }
-
-    public ContactData withEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public ContactData withId(int id) {
-        this.id = id;
-        return this;
     }
 
     public int getId() {

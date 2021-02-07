@@ -29,10 +29,6 @@ public class ContactModificationTest extends TestBase {
         Contacts after = app.contact().all();
         Assert.assertEquals(after.size(), before.size());
 
-
-        before.remove(modifiedContact);
-        before.add(contact);
-        Assert.assertEquals(before, after);
         assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 }

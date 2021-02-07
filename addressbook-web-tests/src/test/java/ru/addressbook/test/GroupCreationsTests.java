@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupCreationsTests extends TestBase {
 
     @BeforeMethod
-    public void ensurePreconditions(){
+    public void ensurePreconditions() {
         app.goTo().GroupPage();
     }
 
@@ -21,7 +21,7 @@ public class GroupCreationsTests extends TestBase {
         GroupData group = new GroupData().withName("Test2").withHeader("1").withFooter("2");
         app.group().create(group);
         Groups after = app.group().all();
-        assertThat(after.size(),equalTo( before.size() + 1));
+        assertThat(after.size(), equalTo(before.size() + 1));
 
 
         assertThat(after, equalTo(before.withAdded(

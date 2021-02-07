@@ -15,10 +15,10 @@ public class ContactCreationTest extends TestBase {
     public void testContactCreation() throws Exception {
         Contacts before = app.contact().all();
         ContactData contact = new ContactData()
-                .withName("Федор").withLastname( "Достоевский").withAddress( "Оренбург").withEmail( "alina.yahina37@gmail.com");
+                .withName("Федор").withLastname("Достоевский").withAddress("Оренбург").withEmail("alina.yahina37@gmail.com");
         app.contact().create(contact);
         Contacts after = app.contact().all();
-        assertThat(after.size(),equalTo( before.size() + 1));
+        assertThat(after.size(), equalTo(before.size() + 1));
 
 
         assertThat(after, CoreMatchers.equalTo(before.

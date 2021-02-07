@@ -1,12 +1,20 @@
 package ru.addressbook.test;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.addressbook.model.ContactData;
 import ru.addressbook.model.GroupData;
+import ru.addressbook.model.Groups;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupModificationTests extends TestBase {
 
@@ -21,20 +29,15 @@ public class GroupModificationTests extends TestBase {
 
     @Test
     public void testGroupModification() {
-        List<GroupData> before = app.group().list();
-        int index = before.size() - 1;
+        Groups before = app.group().all();
+        GroupData modifiedGroup = before.iterator().next();
         GroupData group = new GroupData()
-                .withId(before.get(index).getId()).withName( "test4").withHeader( "test").withFooter("-");
-        app.group().modify(index, group);
-        List<GroupData> after = app.group().list();
-        Assert.assertEquals(after.size(), before.size());
+                .withId(modifiedGroup.getId()).withName( "test4").withHeader( "test").withFooter("-");
+        app.group().modify(group);
+        Groups after = app.group().all();
+        assertEquals(after.size(), before.size());
 
-        before.remove(index);
-        before.add(group);
-        Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(modifiedGroup)));
 
     }
 

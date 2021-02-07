@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.addressbook.model.ContactData;
+import ru.addressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -103,19 +104,6 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-        public Set<ContactData> all() {
-            Set<ContactData> contacts = new HashSet<>();
-            List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
-            for (WebElement element : elements) {
-                int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-                String name = element.findElement(By.xpath(".//td[3]")).getText();
-                String lastname = element.findElement(By.xpath(".//td[2]")).getText();
-                contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));
-            }
-            return contacts;
-
-        }
-
     public void delete(ContactData contact) {
         deleteContactCheckBoxById(contact.getId());
         clickToHome();
@@ -126,6 +114,19 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//input[@value='Delete']")).click();
         wd.switchTo().alert().accept();
     }
+
+        public Contacts all() {
+            Contacts contacts = new Contacts();
+            List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+            for (WebElement element : elements) {
+                int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+                String name = element.findElement(By.xpath(".//td[3]")).getText();
+                String lastname = element.findElement(By.xpath(".//td[2]")).getText();
+                contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));
+            }
+            return contacts;
+
+        }
 
 
 }

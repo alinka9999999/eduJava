@@ -112,11 +112,16 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("value"));
             String name = element.findElement(By.xpath(".//td[3]")).getText();
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
-            String[] phones = element.findElement(By.xpath(".//td[5]")).getText().split("\n");
-            contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname));
+            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            //String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
+            //String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
+            //String address = element.findElement(By.xpath(".//td[4]")).getText();
+            contacts.add(new ContactData().withId(id).withName(name).withLastname(lastname).
+                    withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
         }
         return contacts;
     }
+
 
     public void delete(ContactData contact) {
         deleteContactCheckBoxById(contact.getId());

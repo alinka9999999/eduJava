@@ -96,4 +96,12 @@ public class ContactData {
     public String getEmail() {
         return email;
     }
+
+    public String getGroup() { return group; }
+
+    public String getHomePhone() { return homePhone; }
+
+    public String getMobilePhone() { return mobilePhone;  }
+
+    public String getWorkPhone() { return workPhone; }
 }

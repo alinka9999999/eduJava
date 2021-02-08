@@ -8,10 +8,4 @@
             <class name="ru.addressbook.test.GroupDeleteTest" />
         </classes>
     </test>
-
-    <test name="Contacts">
-        <classes>
-            <class name="ru.addressbook.test.ContactCreationTest"/>
-        </classes>
-    </test>
 </suite>

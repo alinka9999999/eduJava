@@ -43,35 +43,35 @@ public class GroupDataGenerator {
             saveAsCsv(groups, new File(file));
         } else if (format.equals("json")) {
             saveAsJson(groups, new File(file));
-    } else {
+        } else {
             System.out.println("Unrecognized format");
-    }
+        }
 
-}
+    }
 
     private void saveAsJson(List<GroupData> groups, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(json);
+        }
     }
 
-    private static List<GroupData> generateGroups ( int count){
-            List<GroupData> groups = new ArrayList<GroupData>();
-            for (int i = 0; i < count; i++) {
-                groups.add(new GroupData().withName(String.format("test %s", i)).
-                        withHeader((String.format("header %s", i))).
-                        withFooter((String.format("footer %s", i))));
-            }
-            return groups;
+    private static List<GroupData> generateGroups(int count) {
+        List<GroupData> groups = new ArrayList<GroupData>();
+        for (int i = 0; i < count; i++) {
+            groups.add(new GroupData().withName(String.format("test %s", i)).
+                    withHeader((String.format("header %s", i))).
+                    withFooter((String.format("footer %s", i))));
         }
+        return groups;
+    }
 
-        private void saveAsCsv(List < GroupData > groups, File file) throws IOException {
-            Writer writer = new FileWriter(file);
+    private void saveAsCsv(List<GroupData> groups, File file) throws IOException {
+        try (Writer writer = new FileWriter(file)) {
             for (GroupData group : groups) {
                 writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
             }
-            writer.close();
         }
     }
+}

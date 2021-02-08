@@ -2,35 +2,42 @@ package ru.addressbook.test;
 
 import org.hamcrest.CoreMatchers;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.addressbook.model.ContactData;
 import ru.addressbook.model.Contacts;
+import ru.addressbook.model.GroupData;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTest extends TestBase {
 
+    @DataProvider
+    public Iterator<Object[]> validContacts(){
+        List<Object[]> list = new ArrayList<Object[]>();
+        list.add(new Object[] {new ContactData().withName("test1").withLastname("Lastname 1").withAddress("Address 1")});
+        list.add(new Object[] {new ContactData().withName("test2").withLastname("Lastname 2").withAddress("Address 2")});
+        list.add(new Object[] {new ContactData().withName("test3").withLastname("Lastname 3").withAddress("Address 3")});
+        return list.iterator();
+    }
+
     @BeforeMethod
     public void ensurePreconditions() {
         app.contact().clickToHome();
-        if (app.contact().list().size() == 0) {
-            app.contact().create(new ContactData()
-                    .withName("Михаил").withLastname("Лермонтов").withAddress("Кисловодск").withEmail("alina@mail.com"));
-        }
     }
 
-    @Test(enabled = true) //перегенирирован equals and hash
-    public void testContactCreation() throws Exception {
+    @Test(dataProvider = "validContacts") //перегенирирован equals and hash
+    public void testContactCreation(ContactData contact) throws Exception {
         Contacts before = app.contact().all();
-        File photo = new File("src/test/resources/92f.png");
-        ContactData contact = new ContactData()
-                .withName("Федор").withLastname("Достоевский").withPhoto(photo);
+        //File photo = new File("src/test/resources/92f.png");
         app.contact().create(contact);
-        assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
 
         assertThat(after, CoreMatchers.equalTo(before.
                 withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));

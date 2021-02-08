@@ -70,7 +70,7 @@ public class ContactHelper extends HelperBase {
         initContactCreation();
         fillNewContact(contact);
         clickButton();
-        //contactCache = null;
+        contactCache = null;
         returnToContactPage();
     }
 

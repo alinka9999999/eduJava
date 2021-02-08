@@ -51,7 +51,7 @@ public class ContactCreationTest extends TestBase {
                 line = reader.readLine();
             }
             Gson gson = new Gson();
-            List<GroupData> contacts = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<GroupData>>() {
             }.getType());
             return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.addressbook.model.ContactData;
 import ru.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,10 +27,13 @@ public class ContactHelper extends HelperBase {
     public void fillNewContact(ContactData contactData) {
         type("firstname", contactData.getName());
         type("lastname", contactData.getLastname());
-        type("address", contactData.getAddress());
+        type("photo", contactData.getPhoto().getAbsolutePath());
+        attach(By.name("photo"), contactData.getPhoto());
+
+       /*type("address", contactData.getAddress());
         type("email", contactData.getEmail());
         type("email2", contactData.getEmail2());
-        type("email3", contactData.getEmail3());
+        type("email3", contactData.getEmail3());*/
 
     }
 
@@ -67,7 +71,7 @@ public class ContactHelper extends HelperBase {
         initContactCreation();
         fillNewContact(contact);
         clickButton();
-        contactCache = null;
+        //contactCache = null;
         returnToContactPage();
     }
 

@@ -6,6 +6,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.addressbook.test.TestBase;
 
+import java.io.File;
+
 public class HelperBase extends TestBase {
 
     protected WebDriver wd;
@@ -24,6 +26,13 @@ public class HelperBase extends TestBase {
             }
         }
     }
+
+    protected void attach(By locator, File file) {
+         if (file != null) {
+                wd.findElement(locator).sendKeys(file.getAbsolutePath());
+            }
+        }
+
 
     void click(String locator) {
         wd.findElement(By.name(locator)).click();

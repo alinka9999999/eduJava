@@ -26,8 +26,8 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
-        List<Object[]> list = new ArrayList<Object[]>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")))) {
+        List<Object[]> list = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.csv"))) {
             String line = reader.readLine();
         while(line !=null)
 
@@ -43,15 +43,15 @@ public class ContactCreationTest extends TestBase {
     @DataProvider
     public Iterator<Object[]> validContactsFromJson() throws IOException {
         List<Object[]> list = new ArrayList<Object[]>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
-            String json = "";
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.json"))) {
+            StringBuilder json = new StringBuilder();
             String line = reader.readLine();
             while (line != null) {
-                json += line;
+                json.append(line);
                 line = reader.readLine();
             }
             Gson gson = new Gson();
-            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+            List<ContactData> contacts = gson.fromJson(json.toString(), new TypeToken<List<GroupData>>() {
             }.getType());
             return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
@@ -72,6 +72,8 @@ public class ContactCreationTest extends TestBase {
 
         assertThat(after, CoreMatchers.equalTo(before.
                 withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+
+
     }
 
 

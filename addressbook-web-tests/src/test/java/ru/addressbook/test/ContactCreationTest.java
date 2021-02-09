@@ -51,7 +51,7 @@ public class ContactCreationTest extends TestBase {
                 line = reader.readLine();
             }
             Gson gson = new Gson();
-            List<ContactData> contacts = gson.fromJson(json.toString(), new TypeToken<List<GroupData>>() {
+            List<ContactData> contacts = gson.fromJson(json.toString(), new TypeToken<List<ContactData>>() {
             }.getType());
             return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
@@ -72,8 +72,6 @@ public class ContactCreationTest extends TestBase {
 
         assertThat(after, CoreMatchers.equalTo(before.
                 withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
-
-
     }
 
 

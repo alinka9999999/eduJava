@@ -14,6 +14,10 @@ public class ContactDeleteTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.contact().clickToHome();
+        if(app.db().contacts().size()==0){
+            app.contact().create(new ContactData()
+                    .withName("Михаил").withLastname("Лермонтов").withAddress("Кисловодск").withEmail("alina@mail.com"));
+        }
         if (app.contact().list().size() == 0) {
             app.contact().create(new ContactData()
                     .withName("Михаил").withLastname("Лермонтов").withAddress("Кисловодск").withEmail("alina@mail.com"));
@@ -22,11 +26,11 @@ public class ContactDeleteTest extends TestBase {
 
     @Test(enabled = true)
     public void deletionContact() {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
         app.contact().clickToHome();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() - 1);
 
         assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));

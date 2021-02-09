@@ -13,6 +13,10 @@ public class ContactModificationTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
+        if(app.db().contacts().size()==0){
+            app.contact().create(new ContactData()
+                    .withName("Михаил").withLastname("Лермонтов").withAddress("Кисловодск").withEmail("alina@mail.com"));
+        }
         if (app.contact().list().size() == 0) {
             app.contact().create(new ContactData()
                     .withName("Михаил").withLastname("Лермонтов").withAddress("Кисловодск").withEmail("alina@mail.com"));
@@ -21,12 +25,12 @@ public class ContactModificationTest extends TestBase {
 
     @Test(enabled = true)
     public void modificationContact() {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData().withId(modifiedContact.getId())
                 .withName("Александр").withLastname("Пушкин").withAddress("Москва").withEmail("alina@mail.com");
         app.contact().modify(contact);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         Assert.assertEquals(after.size(), before.size());
 
         assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(contact)));
@@ -34,13 +38,13 @@ public class ContactModificationTest extends TestBase {
 
     @Test(enabled = true)
     public void modificationBadContact() {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData().withId(modifiedContact.getId())
                 .withName("Александр").withLastname("Пушкин").withAddress("Москва").withEmail("alina@mail.com");
         app.contact().modify(contact);
         Assert.assertEquals(app.contact().count(), before.size());
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
 
         assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(contact)));
     }

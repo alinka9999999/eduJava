@@ -22,6 +22,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private String browser;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) {
      this.browser = browser;
@@ -34,8 +35,9 @@ public class ApplicationManager {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe");
 
+        dbHelper = new DbHelper();
         if (browser.equals(BrowserType.FIREFOX)) {
-        wd = new FirefoxDriver();
+            wd = new FirefoxDriver();
         } else if (browser.equals(BrowserType.CHROME)) {wd = new ChromeDriver();
         } else if (browser.equals(BrowserType.IE)) {wd = new InternetExplorerDriver();}
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -45,6 +47,7 @@ public class ApplicationManager {
         sessionHelper = new SessionHelper(wd);
         contactHelper = new ContactHelper(wd);
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword") );
+
     }
 
 
@@ -60,4 +63,6 @@ public class ApplicationManager {
     }
 
     public ContactHelper contact() { return contactHelper; }
+
+    public DbHelper db() { return dbHelper; }
 }

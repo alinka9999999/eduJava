@@ -136,15 +136,6 @@ public class ContactData {
     }
 
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
-    }
-
     public String getName() {
         return name;
     }
@@ -165,21 +156,87 @@ public class ContactData {
         return group;
     }
 
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname) && Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastname);
+        return Objects.hash(id, name, lastname, address);
     }
 
-    public String getHomePhone() {
-        return homePhone;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public void setHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public void setWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+    }
+
+    public void setAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+    }
+
+    public void setAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
+
+    public void setEmail3(String email3) {
+        this.email3 = email3;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getMobilePhone() {

@@ -27,12 +27,15 @@ public class ContactHelper extends HelperBase {
     public void fillNewContact(ContactData contactData) {
         type("firstname", contactData.getName());
         type("lastname", contactData.getLastname());
-        attach(By.name("photo"), contactData.getPhoto());
 
-       /*type("address", contactData.getAddress());
+        //attach(By.name("photo"), contactData.getPhoto());
+        type("address", contactData.getAddress());
+        type("home", contactData.getHomePhone());
+        type("work", contactData.getWorkPhone());
+        type("mobile", contactData.getMobilePhone());
         type("email", contactData.getEmail());
         type("email2", contactData.getEmail2());
-        type("email3", contactData.getEmail3());*/
+        type("email3", contactData.getEmail3());
 
     }
 

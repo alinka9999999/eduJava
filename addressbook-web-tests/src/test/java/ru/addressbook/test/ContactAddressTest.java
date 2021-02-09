@@ -12,6 +12,10 @@ public class ContactAddressTest extends TestBase{
     @BeforeMethod
     public void ensurePreconditions() {
         app.contact().clickToHome();
+        if(app.db().contacts().size()==0){
+            app.contact().create(new ContactData()
+                    .withName("Михаил").withLastname("Лермонтов").withAddress("Кисловодск").withEmail("alina@mail.com"));
+        }
         if (app.contact().list().size() == 0) {
             app.contact().create(new ContactData()
                     .withName("Михаил").withLastname("Лермонтов").
@@ -22,7 +26,7 @@ public class ContactAddressTest extends TestBase{
 
     @Test
     public void testContactPhones() {
-        ContactData contact = app.contact().allContacts().iterator().next();
+        ContactData contact = app.db().contacts().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm (contact);
         assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
     }

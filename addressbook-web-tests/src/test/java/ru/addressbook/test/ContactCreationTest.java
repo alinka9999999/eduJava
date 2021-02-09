@@ -64,10 +64,10 @@ public class ContactCreationTest extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson") //перегенирирован equals and hash
     public void testContactCreation(ContactData contact) throws Exception {
-        Contacts before = app.contact().all();
-        //File photo = new File("src/test/resources/92f.png");
+        Contacts before = app.db().contacts();
+        File photo = new File("src/test/resources/92f.png");
         app.contact().create(contact);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(app.contact().count(), equalTo(before.size() + 1));
 
         assertThat(after, CoreMatchers.equalTo(before.
@@ -77,11 +77,12 @@ public class ContactCreationTest extends TestBase {
 
     @Test(enabled = true)
     public void testBadContactCreation() throws Exception {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
+        File photo = new File("src/test/resources/92f.png");
         ContactData contact = new ContactData()
                 .withName("Федор'").withLastname("Достоевский").withAddress("Оренбург").withEmail("alina.yahina37@gmail.com");
         app.contact().create(contact);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(app.contact().count(), equalTo(before.size()));
 
         assertThat(after, CoreMatchers.equalTo(before));

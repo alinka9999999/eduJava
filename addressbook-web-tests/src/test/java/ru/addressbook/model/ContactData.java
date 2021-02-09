@@ -1,11 +1,14 @@
 package ru.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name ="addressbook")
@@ -26,9 +29,6 @@ public class ContactData {
     @Column(name="address")
     @Type(type = "text")
     private String address;
-
-    @Transient
-    private String group;
 
     @Column(name="home")
     @Type(type = "text")
@@ -64,7 +64,15 @@ public class ContactData {
     @Type(type = "text")
     private String photo;
 
+    @ManyToMany
+    @JoinTable (name = "address_in_groups",
+            joinColumns = @JoinColumn(name =  "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
 
     public ContactData withPhoto(File photo) {
         this.photo = photo.getPath();
@@ -135,7 +143,6 @@ public class ContactData {
         return id;
     }
 
-
     public String getName() {
         return name;
     }
@@ -150,10 +157,6 @@ public class ContactData {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getGroup() {
-        return group;
     }
 
     public String getHomePhone() {
@@ -183,60 +186,8 @@ public class ContactData {
         return Objects.hash(id, name, lastname, address);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public void setHomePhone(String homePhone) {
-        this.homePhone = homePhone;
-    }
-
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
-    }
-
-    public void setWorkPhone(String workPhone) {
-        this.workPhone = workPhone;
-    }
-
-    public void setAllPhones(String allPhones) {
-        this.allPhones = allPhones;
-    }
-
-    public void setAllEmails(String allEmails) {
-        this.allEmails = allEmails;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setEmail2(String email2) {
-        this.email2 = email2;
-    }
-
-    public void setEmail3(String email3) {
-        this.email3 = email3;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getMobilePhone() {

@@ -34,6 +34,7 @@ public class ContactDeleteTest extends TestBase {
         assertEquals(after.size(), before.size() - 1);
 
         assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
+        verifyGroupListInUI();
     }
 
     @Test(enabled = true)
@@ -46,5 +47,6 @@ public class ContactDeleteTest extends TestBase {
         Contacts after = app.contact().all();
 
         assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
+        verifyGroupListInUI();
     }
 }

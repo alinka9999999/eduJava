@@ -72,6 +72,7 @@ public class ContactCreationTest extends TestBase {
 
         assertThat(after, CoreMatchers.equalTo(before.
                 withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+        verifyGroupListInUI();
     }
 
 
@@ -86,6 +87,7 @@ public class ContactCreationTest extends TestBase {
         assertThat(app.contact().count(), equalTo(before.size()));
 
         assertThat(after, CoreMatchers.equalTo(before));
+        verifyGroupListInUI();
     }
 }
 

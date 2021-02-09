@@ -217,4 +217,9 @@ public class ContactData {
     public File getPhoto() {
         return new File(photo);
     }
+
+    public ContactData inGroups(GroupData group) {
+        groups.add(group);
+        return this;
+    }
 }

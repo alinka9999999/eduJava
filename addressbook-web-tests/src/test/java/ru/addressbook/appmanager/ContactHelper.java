@@ -3,10 +3,12 @@ package ru.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.addressbook.model.ContactData;
 import ru.addressbook.model.Contacts;
+import ru.addressbook.model.GroupData;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +26,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.linkText("add new")).click();
     }
 
-    public void fillNewContact(ContactData contactData) {
+    public void fillNewContact(ContactData contactData, boolean creation) {
         type("firstname", contactData.getName());
         type("lastname", contactData.getLastname());
 
@@ -36,8 +38,16 @@ public class ContactHelper extends HelperBase {
         type("email", contactData.getEmail());
         type("email2", contactData.getEmail2());
         type("email3", contactData.getEmail3());
-
+        if (creation) {
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
+
 
     public void clickButton() {
         wd.findElement(By.name("submit")).click();
@@ -57,6 +67,10 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
+    public void selectContact(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
     public void modificationContactClick(int id) {
         wd.findElement(By.xpath("(//img[@alt='Edit'])[" + id + "]")).click();
     }
@@ -71,7 +85,7 @@ public class ContactHelper extends HelperBase {
 
     public void create(ContactData contact) {
         initContactCreation();
-        fillNewContact(contact);
+        //fillNewContact(contact);
         clickButton();
         contactCache = null;
         returnToContactPage();
@@ -79,7 +93,7 @@ public class ContactHelper extends HelperBase {
 
     public void modify(ContactData contact) {
         modificationContactClickById(contact.getId());
-        fillNewContact(contact);
+        //fillNewContact(contact);
         clickUpdate();
         contactCache = null;
         returnToContactPage();
@@ -180,6 +194,20 @@ public class ContactHelper extends HelperBase {
         cells.get(7).findElement(By.tagName("a")).click();
 
 
+    }
+
+    public void add() {
+        wd.findElement(By.name("add")).click();
+    }
+
+    /*public void returnToGroupPage(int index) {
+        wd.findElement(By.cssSelector("a[href*='edit.php?id=" + id + "']")).click();
+    }*/
+
+    public void addToGroup(ContactData addContact, GroupData groupTo) {
+        selectContact(addContact.getId());
+        new org.openqa.selenium.support.ui.Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupTo.getName());
+        add();
     }
 }
 

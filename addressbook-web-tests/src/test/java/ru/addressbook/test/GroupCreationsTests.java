@@ -2,12 +2,9 @@ package ru.addressbook.test;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.addressbook.model.ContactData;
 import ru.addressbook.model.GroupData;
 import ru.addressbook.model.Groups;
 
@@ -57,7 +54,7 @@ public class GroupCreationsTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().GroupPage();
+        app.goTo().groupPage();
     }
 
     @Test(dataProvider = "validGroupsFromJson")

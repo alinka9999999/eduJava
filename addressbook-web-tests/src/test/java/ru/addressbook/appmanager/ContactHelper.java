@@ -199,6 +199,9 @@ public class ContactHelper extends HelperBase {
     public void add() {
         wd.findElement(By.name("add")).click();
     }
+    public void remove() {
+        wd.findElement(By.name("remove")).click();
+    }
 
     /*public void returnToGroupPage(int index) {
         wd.findElement(By.cssSelector("a[href*='edit.php?id=" + id + "']")).click();
@@ -208,6 +211,12 @@ public class ContactHelper extends HelperBase {
         selectContact(addContact.getId());
         new org.openqa.selenium.support.ui.Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupTo.getName());
         add();
+    }
+
+    public void removeFromGroup(ContactData removeContact, GroupData fromGroup) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(fromGroup.getName());
+        selectContact(removeContact.getId());
+        remove();
     }
 }
 

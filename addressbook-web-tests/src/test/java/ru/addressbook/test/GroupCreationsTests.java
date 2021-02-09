@@ -2,6 +2,8 @@ package ru.addressbook.test;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -19,6 +21,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationsTests extends TestBase {
+
 
 
     @DataProvider
@@ -59,6 +62,7 @@ public class GroupCreationsTests extends TestBase {
 
     @Test(dataProvider = "validGroupsFromJson")
     public void testGroupCreations(GroupData group) throws Exception {
+
         Groups before = app.group().all();
         app.group().create(group);
         Groups after = app.group().all();
@@ -66,6 +70,7 @@ public class GroupCreationsTests extends TestBase {
 
         assertThat(after, equalTo(before.withAdded(
                 group.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt()))));
+
     }
 
     @Test(enabled = false)

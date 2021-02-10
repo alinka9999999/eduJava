@@ -1,8 +1,6 @@
 package ru.mantis.appmanager;
 
 import org.apache.commons.net.ftp.FTPClient;
-import sun.net.ftp.FtpClient;
-import sun.net.ftp.FtpProtocolException;
 
 import java.io.File;
 import java.io.FileInputStream;

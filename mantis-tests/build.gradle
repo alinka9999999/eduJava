@@ -10,6 +10,10 @@ dependencies {
     testCompile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     implementation 'commons-net:commons-net:3.7.2'
+    testCompile group: 'org.subethamail', name: 'subethasmtp', version: '3.1.7'
+    compile group: 'ru.lanwen.verbalregex', name: 'java-verbal-expressions', version: '1.6'
+
+
 }
 
 test {

@@ -1,17 +1,28 @@
 package ru.mantis.appmanager;
 
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
-public class RegistrationHelper {
-    private final ApplicationManager app;
-    private WebDriver wd;
+public class RegistrationHelper extends HelperBase{
 
-    public RegistrationHelper(ApplicationManager app) {
-        this.app = app;
-        wd = app.getDriver();
+ public RegistrationHelper(ApplicationManager app) {
+        super(app);
     }
 
     public void start(String username, String email) {
         wd.get(app.getProperty("web.baseUrl") + "/signup_page.php");
+        type(By.name("username"),username);
+        type(By.name("email"),email);
+        click(By.cssSelector("input[value='Signup']"));//зарегитсрироваться
     }
+
+    public void finish(String confirmationLink, String password, String realName) {
+        wd.get(confirmationLink);
+        type(By.name("realname"), realName);
+        type(By.name("password"), password);
+        type(By.name("password_confirm"), password);
+        click(By.xpath("//form[@id='account-update-form']/fieldset/span/button/span"));
+    }
+
 }

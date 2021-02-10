@@ -9,7 +9,6 @@ import ru.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.addressbook.test.TestBase.app;
 
 public class ContactDeleteFromGroup extends TestBase {
 
@@ -36,17 +35,10 @@ public class ContactDeleteFromGroup extends TestBase {
 
     }
 
-    @Test
-    public void deleteContactFromGroup() {
-        ContactData removeContact = selectContact();
-        GroupData fromGroup = selectGroup(removeContact);
-        Groups after = removeContact.getGroups();
+    private void deleteFromGroup(ContactData removeContact, GroupData fromGroup) {
         app.contact().clickToHome();
         app.contact().removeFromGroup(removeContact, fromGroup);
         app.contact().clickToHome();
-        ContactData addContactAfter = selectContactById(removeContact);
-        Groups before = addContactAfter.getGroups();
-        assertThat(after.without(fromGroup), equalTo(before));
     }
 
     private ContactData selectContactById(ContactData addContact) {
@@ -70,5 +62,16 @@ public class ContactDeleteFromGroup extends TestBase {
         ContactData contact = selectContactById(removeContact);
         Groups removeContactGroups = contact.getGroups();
         return removeContactGroups.iterator().next();
+    }
+
+    @Test
+    public void deleteContactFromGroup() {
+        ContactData removeContact = selectContact();
+        GroupData fromGroup = selectGroup(removeContact);
+        Groups after = removeContact.getGroups();
+        deleteFromGroup(removeContact, fromGroup);
+        ContactData addContactAfter = selectContactById(removeContact);
+        Groups before = addContactAfter.getGroups();
+        assertThat(after.without(fromGroup), equalTo(before));
     }
 }

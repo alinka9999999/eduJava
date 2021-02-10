@@ -28,24 +28,16 @@ public class ContactAddToGroup extends TestBase{
         }
     }
 
-    @Test
-    public void addToGroup(){
-        ContactData addContact = selectContact();
-        GroupData toGroup = selectGroup(addContact);
-        Groups before = addContact.getGroups();
+    private void addingToGroup(ContactData addContact, GroupData toGroup) {
         app.contact().clickToHome();
         app.contact().addToGroup(addContact, toGroup);
         app.contact().clickToHome();
-        ContactData addContactAfter = selectContactById(addContact);
-        Groups after = addContactAfter.getGroups();
-        assertThat(after, equalTo(before.withAdded(toGroup)));
     }
 
     private ContactData selectContactById(ContactData addContact) {
         Contacts contactsById = app.db().contacts();
         return contactsById.iterator().next().withId(addContact.getId());
     }
-
 
     private ContactData selectContact() {
         Contacts allContacts = app.db().contacts();
@@ -56,7 +48,7 @@ public class ContactAddToGroup extends TestBase{
             }
         }
         app.goTo().groupPage();
-        app.group().create(new GroupData().withName("newGroupForAddContact"));
+        app.group().create(new GroupData().withName("newGroup"));
         return allContacts.iterator().next();
     }
 
@@ -64,9 +56,20 @@ public class ContactAddToGroup extends TestBase{
         Groups allGroups = app.db().groups();
         Groups addContactGroups = addContact.getGroups();
         Collection<GroupData> contactGroups = new HashSet<GroupData>(addContactGroups);
-        Collection<GroupData> different = new HashSet<GroupData>(allGroups);
-        different.removeAll(contactGroups);
-        GroupData differentGroup = different.iterator().next();
-        return differentGroup;
+        Collection<GroupData> other = new HashSet<GroupData>(allGroups);
+        other.removeAll(contactGroups);
+        GroupData otherGroup = other.iterator().next();
+        return otherGroup;
+    }
+
+    @Test
+    public void addToGroup(){
+        ContactData addContact = selectContact();
+        GroupData toGroup = selectGroup(addContact);
+        Groups before = addContact.getGroups();
+        addingToGroup(addContact, toGroup);
+        ContactData addContactAfter = selectContactById(addContact);
+        Groups after = addContactAfter.getGroups();
+        assertThat(after, equalTo(before.withAdded(toGroup)));
     }
 }

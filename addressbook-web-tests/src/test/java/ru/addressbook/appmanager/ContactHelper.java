@@ -218,5 +218,8 @@ public class ContactHelper extends HelperBase {
         selectContact(removeContact.getId());
         remove();
     }
+
+
+
 }
 

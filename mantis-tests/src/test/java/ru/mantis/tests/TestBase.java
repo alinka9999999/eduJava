@@ -3,7 +3,7 @@ package ru.mantis.tests;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import ru.mantis.tests.appmanager.ApplicationManager;
+import ru.mantis.appmanager.ApplicationManager;
 
 public class TestBase {
     static final ApplicationManager app

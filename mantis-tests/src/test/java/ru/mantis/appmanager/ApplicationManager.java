@@ -1,4 +1,4 @@
-package ru.mantis.tests.appmanager;
+package ru.mantis.appmanager;
 
 import org.openqa.selenium.WebDriver;
 

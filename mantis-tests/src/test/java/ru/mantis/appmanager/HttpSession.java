@@ -53,4 +53,3 @@ public class HttpSession {
         return body.contains(String.format("<span class=\"italic\">%s</span>", username));
     }
 }
-//<span class="label hidden-xs label-default arrowed">%s</span>

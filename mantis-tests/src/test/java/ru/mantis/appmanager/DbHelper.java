@@ -30,16 +30,4 @@ public class DbHelper {
     session.close();
     return new Users(result);
   }
-  /*public void testHbConnection() {
-    Session session = sessionFactory.openSession();
-    session.beginTransaction();
-    List<UserData> result = session.createQuery( "from UserData" ).list();
-    for (UserData user : result ) {
-      System.out.println( user );
-    }
-    session.getTransaction().commit();
-    session.close();
-  }*/
-
-
 }

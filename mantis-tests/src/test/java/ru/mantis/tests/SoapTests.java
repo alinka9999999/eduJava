@@ -29,6 +29,12 @@ public class SoapTests extends TestBase{
                 .withDescription("Test issue description").withProject(projects.iterator().next());
         Issue created = app.soap().addIssue(issue);
         assertEquals(issue.getSummary(), created.getSummary());
+    }
 
+    @Test
+    public void testSkip() throws RemoteException, ServiceException, MalformedURLException {
+        int issueId = 1;
+        skipIfNotFixed(issueId);
+        System.out.println("Not ignored " + issueId);
     }
 }

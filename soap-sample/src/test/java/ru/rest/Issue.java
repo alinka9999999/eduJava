@@ -6,10 +6,10 @@ public class Issue {
     private int id;
     private String subject;
     private String description;
-    private String state;
+    private String stateName;
 
-    public String getState() {
-        return state;
+    public String getStateName() {
+        return stateName;
 
     }
 
@@ -45,8 +45,8 @@ public class Issue {
 
     }
 
-    public Issue withState(String state) {
-        this.state = state;
+    public Issue withStateName(String stateName) {
+        this.stateName = stateName;
         return this;
     }
 
